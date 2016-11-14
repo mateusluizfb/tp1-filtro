@@ -6,12 +6,11 @@ import java.util.Map;
 
 import filtropalavras.interfaces.FiltroInterface;
 
-public abstract class FiltroAbstrato implements FiltroInterface{
-	
+public abstract class FiltroAbstrato implements FiltroInterface {
+
 	protected FileReader leitorArquivo;
 	protected String[] arrayComparacao;
 	protected Map<String, Integer> map = new HashMap<>();
-
 
 	public String[] getArrayComparacao() {
 		return arrayComparacao;

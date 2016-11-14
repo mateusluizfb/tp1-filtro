@@ -5,14 +5,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
  * 
  * Classe que implementa FiltroInterface
  * 
- * @author Mateus e Marcos
+ * @author Mateus e Marcus
  *
  */
 
@@ -30,7 +33,7 @@ public class Filtro extends FiltroAbstrato {
 		try {
 			leitorArquivo = new FileReader(arquivoTXT);
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Arquivo não encontrado", e);
+			throw new RuntimeException("Arquivo nÃ£o encontrado", e);
 		}
 	}
 
@@ -45,7 +48,7 @@ public class Filtro extends FiltroAbstrato {
 	}
 
 	/**
-	 * Recebe apenas as palavras a serem comparadas
+	 * Recebe apenas as palavras a serem comparada+s
 	 */
 
 	@Override
@@ -93,7 +96,7 @@ public class Filtro extends FiltroAbstrato {
 		StringTokenizer tokens = new StringTokenizer(line);
 		String token;
 		Arrays.asList(arrayComparacao).forEach(s -> map.put(s, 0));
-		
+
 		while (tokens.hasMoreTokens()) {
 			token = tokens.nextToken().toLowerCase();
 
@@ -139,17 +142,25 @@ public class Filtro extends FiltroAbstrato {
 	@Override
 	public void substitui(String palavraProcurada, String novaPalavra) {
 		checarArquivo();
-
+		BufferedReader br = new BufferedReader(leitorArquivo);
+		String linha;
+		try {
+			while ((linha = br.readLine()) != null) {
+				linha.replaceAll(palavraProcurada, novaPalavra);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * Recebe o arquivo a ser liso, porcura por uma palavra e substitui ela
+	 * Recebe o arquivo a ser liso, procura por uma palavra e substitui ela
 	 */
 
 	@Override
 	public void substitui(String arquivoTXT, String palavraProcurada, String novaPalavra) {
 		recebeArquivo(arquivoTXT);
-
+		substitui(palavraProcurada, novaPalavra);
 	}
 
 	/**
@@ -165,15 +176,15 @@ public class Filtro extends FiltroAbstrato {
 				PrintWriter archive = new PrintWriter("resultado.txt");) {
 
 			String line;
-			
+
 			while ((line = reader.readLine()) != null) {
-				
+
 				for (String string : Arrays.asList(arrayComparacao)) {
-					
+
 					line = line.replaceAll(string, "");
 				}
 				archive.println(line);
-			}			
+			}
 
 		} catch (IOException e) {
 			throw new RuntimeException("Arquivo nao encontrado", e);
@@ -195,12 +206,12 @@ public class Filtro extends FiltroAbstrato {
 
 	private void checarArquivo() {
 		if (leitorArquivo == null)
-			throw new IllegalAccessError("Arquivo não definido");
+			throw new IllegalAccessError("Arquivo nï¿½o definido");
 	}
 
 	private void checarPalavras() {
 		if (arrayComparacao == null)
-			throw new IllegalAccessError("Array de palavras não definido");
+			throw new IllegalAccessError("Array de palavras nï¿½o definido");
 	}
 
 }

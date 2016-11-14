@@ -1,7 +1,5 @@
 package filtropalavras;
 
-import java.util.Map;
-
 import filtropalavras.implementacao.Filtro;
 import filtropalavras.interfaces.FiltroInterface;
 

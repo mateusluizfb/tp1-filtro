@@ -18,7 +18,9 @@ public class Main {
 		
 		fi.recebeArquivo("texto.txt", array);
 		
-		fi.deletaPalavras();
+		fi.substitui("texto", "TP1!@!@!");
+		
+		//fi.deletaPalavras();
 		
 		
 		

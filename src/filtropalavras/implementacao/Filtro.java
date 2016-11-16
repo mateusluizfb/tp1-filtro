@@ -148,16 +148,15 @@ public class Filtro extends FiltroAbstrato {
 		// Cria novo arquivo para palavras substituidas
 		// Lê uma linha por vez no arquivo original
 		// Substitui a palavra e escreve a linha no arquivo novo
-		String novoArquivo = novaPalavra + ".txt";
+		String novoArquivo = "resultado2.txt";
 		String linha;
 		try (FileWriter fw = new FileWriter(novoArquivo);
 				PrintWriter pw = new PrintWriter(fw)) {
 			
 			while ((linha = br.readLine()) != null) {
-				linha.replaceAll(palavraProcurada, novaPalavra);
-				pw.print(linha);
+				pw.println(linha.replaceAll(palavraProcurada, novaPalavra));
 			}
-			
+			br.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -3,6 +3,7 @@ package filtropalavras.implementacao;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -143,11 +144,20 @@ public class Filtro extends FiltroAbstrato {
 	public void substitui(String palavraProcurada, String novaPalavra) {
 		checarArquivo();
 		BufferedReader br = new BufferedReader(leitorArquivo);
+		
+		// Cria novo arquivo para palavras substituidas
+		// Lê uma linha por vez no arquivo original
+		// Substitui a palavra e escreve a linha no arquivo novo
+		String novoArquivo = novaPalavra + ".txt";
 		String linha;
-		try {
+		try (FileWriter fw = new FileWriter(novoArquivo);
+				PrintWriter pw = new PrintWriter(fw)) {
+			
 			while ((linha = br.readLine()) != null) {
 				linha.replaceAll(palavraProcurada, novaPalavra);
+				pw.print(linha);
 			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
